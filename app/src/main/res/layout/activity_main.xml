@@ -1,15 +1,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.choso.tuantt.nhanghiviet01.MainActivity" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.choso.tuantt.nhanghiviet01.MainActivity">
 
-<ListView
-    android:id="@+id/list_item"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:divider="@color/list_divider"
-    android:dividerHeight="1dp"
-    android:listSelector="@drawable/list_row_select" />
+    <EditText
+        android:id="@+id/searchtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:layout_toLeftOf="@+id/searchbtn"
+        android:hint="@string/find_text_txt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
+    <Button
+        android:id="@+id/searchbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_text_btn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_item"
+        android:layout_below="@+id/searchtxt" />
+
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/rotateloading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        app:loading_speed="11"
+        app:loading_width="5dp"/>
 </RelativeLayout>

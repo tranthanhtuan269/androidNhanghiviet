@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ItemAdapter extends BaseAdapter{
     private Activity activity;
     private LayoutInflater inflater;
     private List<Item> items;
-    ImageLoader imageLoader= AppController.getmInstance().getmImageLoader();
+    ImageLoader imageLoader;
     public ItemAdapter(Activity activity, List<Item> items){
         this.activity=activity;
         this.items=items;
@@ -63,6 +64,7 @@ public class ItemAdapter extends BaseAdapter{
         imageView.setImageUrl(item.getImage(), imageLoader);
         title.setText(item.getTitle());
         rate.setText(item.getRate());
+
         return view;
     }
 }

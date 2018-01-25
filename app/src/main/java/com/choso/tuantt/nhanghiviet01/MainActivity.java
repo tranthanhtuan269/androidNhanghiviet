@@ -1,26 +1,15 @@
 package com.choso.tuantt.nhanghiviet01;
 
-import android.app.Application;
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.victor.loading.rotate.RotateLoading;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String url ="https://api.androidhive.info/json/movies.json";
-    private List<Item> movieList = new ArrayList<Item>();
+    private List<Item> hotelList = new ArrayList<Item>();
     private ListView listView;
     private ItemAdapter adapter;
 
@@ -41,18 +30,38 @@ public class MainActivity extends AppCompatActivity {
 
     public JSONArray data;
 
+    private RotateLoading rotateLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         listView = (ListView)findViewById(R.id.list_item);
-        adapter = new ItemAdapter(this, movieList);
+        rotateLoading = (RotateLoading) findViewById(R.id.rotateloading);
+        adapter = new ItemAdapter(this, hotelList);
         listView.setAdapter(adapter);
+
+        getDataRequest();
+
+
+
+
+
+
+    }
+
+    private void getDataRequest(){
+        if (!rotateLoading.isStart()) {
+            rotateLoading.start();
+        }
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                if (rotateLoading.isStart()) {
+                    rotateLoading.stop();
+                }
                 for(int i=0; i<response.length();i++){
                     try {
                         JSONObject obj = response.getJSONObject(i);
@@ -60,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         item.setTitle(obj.getString("title"));
                         item.setImage(obj.getString("image"));
                         item.setRate(obj.getString("rating"));
-                        movieList.add(item);
+                        hotelList.add(item);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

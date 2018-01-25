@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Nhanghiviet01</string>
+    <string name="find_text_txt">Nơi bạn tìm việc?</string>
+    <string name="find_text_btn">Tìm kiếm</string>
 </resources>
